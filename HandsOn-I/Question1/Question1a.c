@@ -19,8 +19,8 @@ void main(int argc, char *argv[])
         status = symlink(filepath, softLinkPath);
 
         if (status == -1)
-            perror("Error while creating hard link!");
+            perror("Error while creating soft link!");
         else
-            printf("Successfully created a hard link. Check with the `ll` or `ls -l` command.\n");
+            printf("Successfully created a soft link. Check with the `ll` or `ls -l` command.\n");
     }
 }
