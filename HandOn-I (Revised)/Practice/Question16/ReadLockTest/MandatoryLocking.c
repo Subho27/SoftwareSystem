@@ -1,0 +1,49 @@
+#include<stdio.h>
+#include<unistd.h>
+#include<fcntl.h>
+
+int main(int argc, char *args[]){
+	struct flock lock, lockStatus;
+	char *filename;
+	if(argc != 2){
+		printf("Please enter a filename to check status.\n");
+	}
+	else{
+		/* F_RDLCK = 0
+		 * F_WRLCK = 1
+		 * F_UNLCK = 2 */
+
+		filename = args[1];
+
+		lock.l_type = F_RDLCK;
+		
+		lockStatus = lock;
+
+		int fd = open(filename, O_RDONLY);
+
+		fcntl(fd, F_GETLK, &lockStatus);
+		if(lockStatus.l_type == 0){
+			printf("File is already locked with reading lock.\n");
+		}
+		else{
+			if(lockStatus.l_type == 1){
+				printf("Current locking mode : Write Lock.\n");
+			}
+			if(lockStatus.l_type == 2){
+				printf("Current locking mode : Unlocked.\n");
+			}
+			int status = fcntl(fd, F_SETLK, &lock);
+			if(status == -1){
+				printf("Could not lock file for reading.\n");
+				return 0;
+			}
+			else{	
+				printf("Read lock has been set successfully.\n");
+				getchar();
+				printf("Back to the primary process.\n");
+			}	
+		}
+
+	}
+	return 0;
+}

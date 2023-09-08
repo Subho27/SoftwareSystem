@@ -1,0 +1,5 @@
+This is a sample text
+you should be able to copy this.
+and then print it in terminal.
+I will judge if it is working,
+if works fine, will give you a gift.
