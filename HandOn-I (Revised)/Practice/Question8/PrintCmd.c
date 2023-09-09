@@ -22,7 +22,7 @@ int main(int argc, char *args[]){
 					break;
 				}
 				else if(rbyte == -1){
-					printf("There is a error in reading file.\n");
+					printf("There is an error in reading file.\n");
 					break;
 				}
 				else if(b[0] == '\n'){

@@ -42,10 +42,10 @@ int main(int argc, char *args[]){
                     			printf("The file has been opened with the flags : O_WRONLY | O_CREAT | O_APPEND\n");
                     			break;
                 		case 578:
-                    			printf("The file has been opened with the flags : O_RDWR   | O_CREAT | O_TRUNC\n");
+                    			printf("The file has been opened with the flags : O_RDWR | O_CREAT | O_TRUNC\n");
                     			break;
                 		case 1090:
-                    			printf("The file has been opened with the flags : O_RDWR   | O_CREAT | O_APPEND\n");
+                    			printf("The file has been opened with the flags : O_RDWR | O_CREAT | O_APPEND\n");
                     			break;
                 		default:
                     			printf("Error!");

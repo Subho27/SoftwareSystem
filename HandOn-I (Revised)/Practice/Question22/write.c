@@ -7,16 +7,6 @@ int main(int argc, char* args[]){
 		printf("Please enter a filename.\n");
 	}
 	else{
-		filename = args[1];
-		int fd = open(filename, O_CREAT | O_WRONLY, 0777);
-		int pid = getpid();
-		printf("parent has started writing.\n");
-		int wbyte = write(fd, "Hi I am from Parent.", 20);
-		if(wbyte == -1){
-			printf("fatal error while writing from parent.");
-		}
-		printf("parent has stopped.\n");
-		close(fd);
 		int cpid = fork();
 		if(cpid == 0){
 			filename = args[1];
@@ -27,10 +17,19 @@ int main(int argc, char* args[]){
                         	printf("fatal error while writing from child.");
                 	}
 			printf("child has stopped.\n");
-			close(fd);
+			close(fd1);
 		}
 		else{
-			printf("I am parent. I can not write again.\n");
+			filename = args[1];
+			int fd = open(filename, O_CREAT | O_WRONLY | O_APPEND, 0777);
+			int pid = getpid();
+			printf("parent has started writing.\n");
+			int wbyte = write(fd, "Hi I am from Parent.", 20);
+			if(wbyte == -1){
+				printf("fatal error while writing from parent.");
+			}
+			printf("parent has stopped.\n");
+			close(fd);
 		}
 	}
 	return 0;

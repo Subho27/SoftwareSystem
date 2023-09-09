@@ -31,16 +31,17 @@ int main(int argc, char *args[]){
 				int no;
 				scanf("%d", &no);
 				int bytetoSkip = (no-1) * ((sizeof(int))*2+ sizeof(char));
-				lock.l_type = F_RDLCK;
-				lock.l_whence = SEEK_SET;
-				lock.l_start = bytetoSkip;
-				lock.l_len = 2 * sizeof(int);
+				lockStatus.l_type = F_RDLCK;
+				lockStatus.l_whence = SEEK_SET;
+				lockStatus.l_start = bytetoSkip;
+				lockStatus.l_len = 2 * sizeof(int);
 				fcntl(fd, F_GETLK, &lockStatus);
 				if(lockStatus.l_type == F_WRLCK){
 					printf("Another process is writing to this file.\nPlease wait for sometime.\n");
 				}
 				else{
-					int status = fcntl(fd, F_SETLK, &lock);
+					lockStatus.l_type = F_WRLCK;
+					int status = fcntl(fd, F_SETLK, &lockStatus);
 					if(status == -1){
 						printf("There is a problem with locking the file.\n");
 						break;
@@ -72,10 +73,10 @@ int main(int argc, char *args[]){
 				printf("Please enter the new data : ");
 				scanf("%d", &data);
 				int byteto = ((num-1) * ((sizeof(int))*2+ sizeof(char))) + sizeof(int);
-				lock.l_type = F_WRLCK;
-				lock.l_whence = SEEK_SET;
-                                lock.l_start = byteto;
-                                lock.l_len = sizeof(int);
+				lockStatus.l_type = F_WRLCK;
+				lockStatus.l_whence = SEEK_SET;
+                                lockStatus.l_start = byteto;
+                                lockStatus.l_len = sizeof(int);
 				fcntl(fd, F_GETLK, &lockStatus);
 				if(lockStatus.l_type == F_WRLCK){
 					printf("Another process is writing to this file.\nPlease wait for sometime.\n");
@@ -84,15 +85,16 @@ int main(int argc, char *args[]){
 					printf("Another process is reading from this file.\nPlease wait for sometime.\n");
 				}
 				else{
-					int status = fcntl(fd, F_SETLK, &lock);
+					lockStatus.l_type = F_WRLCK;
+					int status = fcntl(fd, F_SETLK, &lockStatus);
 					if(status == -1){
 						printf("There is a problem with locking the file.\n");
 						break;
 					}
 					else{
 						//To test locking uncomment these lines
-						//int n;
-						//scanf("%d", &n);
+						int n;
+						scanf("%d", &n);
                                                 lseek(fd, byteto, SEEK_SET);
 						int wbyte = write(fd, &data, sizeof(int));
 						lseek(fd, -(2*sizeof(int)), SEEK_CUR);

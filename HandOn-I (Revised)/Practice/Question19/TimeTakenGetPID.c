@@ -11,12 +11,12 @@
 
 void main()
 {
-    int start, end, pid;
+    unsigned long long start, end, pid;
 
     start = __rdtsc();
     pid = getpid();
     end = __rdtsc();
 
-    printf("Process ID : %d\n", pid);
-    printf("Time taken to run getpid() : %d\n", (end - start));
+    printf("Process ID : %lld\n", pid);
+    printf("Time taken to run getpid() : %lld\n", (end - start));
 }

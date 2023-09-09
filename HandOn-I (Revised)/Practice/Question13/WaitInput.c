@@ -19,7 +19,7 @@ int main(){
 		printf("There is an error!\n");
 	}
 	else if(returnVal){
-		printf("The data is now available.\n");
+		printf("The data is now available %d.\n", returnVal);
 	}
 	else{
 		printf("No data was entered.\n");
