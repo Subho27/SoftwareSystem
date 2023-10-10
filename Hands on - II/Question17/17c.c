@@ -1,9 +1,9 @@
 /*
 ============================================================================
-Name : 17a.c
+Name : 17c.c
 Author : Subhodip Rudra
 Description : Write a program to execute ls -l | wc.
-    a. use dup
+    c. use fcntl
 Date: 9th Oct, 2023.
 ============================================================================
 */
@@ -22,13 +22,13 @@ int main(){
     if(pid == 0){
         close(STDOUT_FILENO);
         close(fd[0]);
-        dup(fd[1]);
+        fcntl(fd[1], F_DUPFD, STDOUT_FILENO);
         execl("/usr/bin/ls", "ls -l", "-l", NULL);
     }
     else{
         close(STDIN_FILENO);
         close(fd[1]);
-        dup(fd[0]);
+        fcntl(fd[0], F_DUPFD, STDIN_FILENO);
         execl("/usr/bin/wc", "wc", NULL);
     }
     return 0;

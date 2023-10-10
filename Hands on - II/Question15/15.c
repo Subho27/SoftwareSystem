@@ -12,36 +12,31 @@ Date: 9th Oct, 2023.
 #include<sys/stat.h>
 #include<fcntl.h>
 int main() {
-    char* filename = "demo";
-    int fd, pid;
-    int status_cr = mkfifo(filename, 0777);
+    int fd[2], pid;
+    int status_cr = pipe(fd);
     if(status_cr == -1){
-        printf("Already file created.\n");
+        printf("There is a problem in declaring pipe.\n");
+        return -1;
     }
     pid = fork();
     if(pid > 0){
-        close(fd);
+        close(fd[0]); // Closing read end of pipe
         printf("Parent : Hello I am parent.\nParent : I have started writing to pipe.\n");
-        fd = open(filename, O_WRONLY);
-        int wbyte = write(fd, "***This is a message from parent***\n", 36);
+        int wbyte = write(fd[1], "***This is a message from parent***\n", 36);
         if(wbyte < 0){
             printf("Parent : Write to pipe failed.\n");
+            return -1;
         }
         printf("Parent : I am done writing to pipe.\n");
-        close(fd);
     }
     else{
-        close(fd);
+        close(fd[1]); // Closing write end of pipe
         char b[100];
         printf("Child : Hello I am child.\nChild : I have got a message from parent.\n");
-        fd = open(filename, O_RDONLY);
+        int rbyte = read(fd[0], &b, 36);
         printf("Child : Reading of parent message done.\n");
-        int rbyte = read(fd, &b, 36);
-        for(int i=0; i<36; i++){
-            printf("%c", b[i]);
-        }
+        printf("%s", b);
         printf("Child : I have got your message, Parent.\n");
-        close(fd);
     }
     return 0;
 }
