@@ -1,9 +1,9 @@
 /*
 ============================================================================
 Name : 33.c
-Author : Suraj Subedi
+Author : Subhodip Rudra
 Description : Write a program to communicate between two machines using socket.
-Date: 9th Oct, 2023.
+Date: 14th Oct, 2023.
 ============================================================================
 */
 

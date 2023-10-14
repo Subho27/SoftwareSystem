@@ -1,13 +1,13 @@
 /*
 ============================================================================
-Name : 31b.c
-Author : Suraj Subedi
+Name : 30.c
+Author : Subhodip Rudra
 Description : Write a program to create a shared memory. 
     1. Write some data to the shared memory
     2. Attach with `O_RDONLY` and check whether you are able to overwrite. 
     3. Detach the shared memory 
     4. Remove the shared memory
-Date: 8th Oct, 2023.
+Date: 14th Oct, 2023.
 ============================================================================
 */
 

@@ -1,9 +1,9 @@
 /*
 ============================================================================
 Name : 34bserver.c
-Author : Suraj Subedi
+Author : Subhodip Rudra
 Description : Write a program to create Concurrent Server.Using pthread_create
-Date: 9th Oct, 2023.
+Date: 14th Oct, 2023.
 ============================================================================
 */
 

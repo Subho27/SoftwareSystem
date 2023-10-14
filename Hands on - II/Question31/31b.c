@@ -1,9 +1,9 @@
 /*
 ============================================================================
 Name : 31b.c
-Author : Suraj Subedi
+Author : Subhodip Rudra
 Description : Write a program to create a semaphore and initialize value to the semaphore - Create a counting semaphore
-Date: 8th Oct, 2023.
+Date: 14th Oct, 2023.
 ============================================================================
 */
 #include <sys/types.h> // Import for `ftok`, `semget`, `semctl`
